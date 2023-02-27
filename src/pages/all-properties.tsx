@@ -12,6 +12,11 @@ const AllProperties = () => {
     tableQueryResult: { data, isLoading, isError }
   } = useTable();
 
+  const allProperties = data?.data ?? [];
+
+  if(isLoading) return <Typography>Loading...</Typography>
+  if(isError) return <Typography>Error...</Typography>
+
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -36,7 +41,16 @@ const AllProperties = () => {
       mt="20px"
       sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}
       >
-
+        {allProperties.map((property) => (
+          <PropertyCard 
+            key={property._id}
+            id={property._id}
+            title={property.title}
+            price={property.price}
+            location={property.location}
+            photo={property.photo}
+          />
+        ))}
       </Box>
     </Box>
   )
